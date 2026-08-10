@@ -39,6 +39,55 @@ while calculating_discount:
     except ValueError:
         print(f"Please enter a valid input.")
 
+# Question2
+def create_reorder_manifest(inventory):
+    # This dictionary will store products grouped by vendor.
+    manifest = {}
+
+    # Loop through every product in the inventory.
+    for product_id, product in inventory.items():
+
+        quantity = product["quantity"]
+        threshold = product["reorder_threshold"]
+        vendor = product["vendor"]
+
+        # Reorder the product if its quantity is at or below
+        # the configured reorder threshold.
+        if quantity <= threshold:
+
+            # Create the vendor entry if it doesn't exist yet.
+            if vendor not in manifest:
+                manifest[vendor] = []
+
+            # Add the product information to that vendor's list.
+            manifest[vendor].append({
+                "product_id": product_id,
+                "current_quantity": quantity,
+                "reorder_threshold": threshold
+            })
+
+    return manifest
+
+
+inventory = {
+    "SKU001": {
+        "quantity": 5,
+        "reorder_threshold": 10,
+        "vendor": "Vendor A"
+    },
+    "SKU002": {
+        "quantity": 20,
+        "reorder_threshold": 10,
+        "vendor": "Vendor B"
+    },
+    "SKU003": {
+        "quantity": 3,
+        "reorder_threshold": 5,
+        "vendor": "Vendor A"
+    }
+}
+
+# print(create_reorder_manifest(inventory))
 
 # Question 3
 def format_sku(raw_sku):
@@ -58,4 +107,4 @@ def format_sku(raw_sku):
     return "-".join(parts)
 
 
-print(format_sku(" shirt_blue_xl "))
+# print(format_sku(" shirt_blue_xl "))
