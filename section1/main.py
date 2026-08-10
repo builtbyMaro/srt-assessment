@@ -209,4 +209,87 @@ cart = {
     "Hat": {"unit_price": 40}
 }
 
-print(products_in_price_range(cart, 30, 100))
+# print(products_in_price_range(cart, 30, 100))
+
+# Question 10
+def generate_receipt(items, tax_rate):
+    # Store the calculated subtotal for all items.
+    subtotal = 0
+
+    # Calculate the total for each line item.
+    for item in items:
+        item["total"] = item["quantity"] * item["price"]
+        subtotal += item["total"]
+
+    # Calculate tax.
+    tax = subtotal * tax_rate
+
+    # Calculate the final amount.
+    grand_total = subtotal + tax
+
+    # Determine the required width for the product name column.
+    name_width = max(
+        len("Item"),
+        max(len(item["name"]) for item in items)
+    )
+
+    # Print the receipt heading.
+    print("=" * 55)
+    print("                    INVOICE")
+    print("=" * 55)
+
+    # Print the table headings.
+    print(
+        f"{'Item':<{name_width}} "
+        f"{'Qty':>5} "
+        f"{'Price':>10} "
+        f"{'Total':>10}"
+    )
+
+    print("-" * 55)
+
+    # Print each product.
+    for item in items:
+        print(
+            f"{item['name']:<{name_width}} "
+            f"{item['quantity']:>5} "
+            f"{'$' + format(item['price'], '.2f'):>10}"
+            f"{'$' + format(item['total'], '.2f'):>10}"
+        )
+
+    print("-" * 55)
+
+    # Print subtotal.
+    print(f"{'Subtotal'}:      ${subtotal:.2f}")
+
+    # Print tax.
+    print(
+        f"{'Tax (' + str(tax_rate * 100) + '%)'} "
+        f"    ${tax:.2f}"
+    )
+
+    # Print final total.
+    print(f"{'Grand Total'}    ${grand_total:.2f}")
+
+    print("=" * 55)
+
+
+items = [
+    {
+        "name": "T-Shirt",
+        "quantity": 2,
+        "price": 25.00
+    },
+    {
+        "name": "Running Shoes",
+        "quantity": 1,
+        "price": 80.00
+    },
+    {
+        "name": "Cap",
+        "quantity": 3,
+        "price": 15.00
+    }
+]
+
+generate_receipt(items, 0.075)
