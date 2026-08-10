@@ -1,43 +1,38 @@
-from utils import calculate_discount
-
 # Question 1
-calculating_discount = False
-while calculating_discount:
-    try:
-        # input order total
-        total = float(input("Enter order total: "))
+def calculate_discount(order_total:float, user_tier:str, promo_code:str) -> float:
+    """
+    user_tier choices => STANDARD (0% discount), GOLD(10% discount), VIP(20% discount)
+    if order_total more than 500.00 adds a 5% discount
+    if promo_code is valid adds a 3% discount
+    """
 
-        # select user tier
-        print("Select User Tier")
-        print("1: STANDARD")
-        print("2: GOLD")
-        print("3: VIP")
-        tier_choice = int(input("Enter user tier (1/2/3): "))
-        if tier_choice == 1:
-            user_tier = "STANDARD"
-        elif tier_choice == 2:
-            user_tier = "GOLD"
-        elif tier_choice == 3:
-            user_tier = "VIP"
+    # new total to be returned
+    new_total = None
 
-        # input promo code if any
-        while True:
-            enter_promo_code = input("Do you have a promo code ? (Y/N): ").capitalize()
-            if enter_promo_code == "Y":
-                promo_code = input("Enter your promo code (case sensitive): ")
-                break
-            elif enter_promo_code == "N":
-                promo_code = ""
-                break
-            else:
-                print("Please enter Y/N")
+    # discount based on user_tier
+    match user_tier:
+        case "STANDARD":
+            pass
+        case "GOLD":
+            order_total = order_total * (1 - 10 / 100)
+        case "VIP":
+            order_total = order_total * (1 - 20 / 100)
+        case _:
+            return f"{user_tier} is not a valid user tier."
 
-        discounted_price = calculate_discount(order_total=total, user_tier=user_tier, promo_code=promo_code)
-        print(f"Total: ${discounted_price:.2f}")
-        break
-        
-    except ValueError:
-        print(f"Please enter a valid input.")
+    # 5% discount if order_total greater than $500
+    if order_total > 500:
+        new_total = order_total * (1 - 5 / 100)
+
+    # Additional promo logic
+    promo_codes = ("WXYZ2", "RTC25", "WXWYT", "LVYST")
+
+    if promo_code in promo_codes:
+        new_total = new_total * (1 - 3 / 100)
+
+    return f"${new_total:.2f}"
+
+print(calculate_discount(1000, user_tier="VIP", promo_code="RTC25"))
 
 # Question2
 def create_reorder_manifest(inventory):
@@ -292,4 +287,4 @@ items = [
     }
 ]
 
-generate_receipt(items, 0.075)
+# generate_receipt(items, 0.075)
