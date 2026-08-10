@@ -157,5 +157,27 @@ def validate_password(password):
     }
 
 
-print(validate_password("hello123"))
-print(validate_password("hello123$"))
+# print(validate_password("hello123"))
+# print(validate_password("hello123$"))
+
+# Question 7
+def remove_duplicate_order_id(order_ids):
+    # A set gives us fast membership checking.
+    seen = set()
+
+    # This list will preserve the original arrival order.
+    clean_orders = []
+
+    for order_id in order_ids:
+
+        # Only add the order if we haven't encountered it before.
+        if order_id not in seen:
+            seen.add(order_id)
+            clean_orders.append(order_id)
+
+    return clean_orders
+
+
+orders = [102, 105, 102, 108, 110, 105]
+
+# print(remove_duplicate_order_id(orders))
