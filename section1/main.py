@@ -181,3 +181,32 @@ def remove_duplicate_order_id(order_ids):
 orders = [102, 105, 102, 108, 110, 105]
 
 # print(remove_duplicate_order_id(orders))
+
+# Question 8
+def products_in_price_range(cart, min_price, max_price):
+    matching_products = []
+
+    # Go through every product in the shopping cart.
+    for product_name, product in cart.items():
+
+        unit_price = product["unit_price"]
+
+        # Strictly greater than min_price
+        # AND strictly less than max_price.
+        if min_price < unit_price < max_price:
+            matching_products.append({
+                "name": product_name,
+                "unit_price": unit_price
+            })
+
+    return matching_products
+
+
+cart = {
+    "Shirt": {"unit_price": 25},
+    "Shoes": {"unit_price": 80},
+    "Watch": {"unit_price": 150},
+    "Hat": {"unit_price": 40}
+}
+
+print(products_in_price_range(cart, 30, 100))
