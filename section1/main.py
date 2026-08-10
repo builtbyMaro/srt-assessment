@@ -1,5 +1,6 @@
 from utils import calculate_discount
 
+# Question 1
 calculating_discount = False
 while calculating_discount:
     try:
@@ -37,3 +38,24 @@ while calculating_discount:
         
     except ValueError:
         print(f"Please enter a valid input.")
+
+
+# Question 3
+def format_sku(raw_sku):
+    # Remove whitespace from the beginning and end.
+    sku = raw_sku.strip()
+
+    # Convert the entire SKU to uppercase.
+    sku = sku.upper()
+
+    # Split the SKU into its individual components.
+    parts = sku.split("_")
+
+    # Remove empty components in case the input contains double underscores.
+    parts = [part for part in parts if part]
+
+    # Join the components using hyphens.
+    return "-".join(parts)
+
+
+print(format_sku(" shirt_blue_xl "))
