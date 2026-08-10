@@ -108,3 +108,54 @@ def format_sku(raw_sku):
 
 
 # print(format_sku(" shirt_blue_xl "))
+
+
+# Question 6
+def validate_password(password):
+    errors = []
+
+    # Check the minimum password length.
+    if len(password) < 8:
+        errors.append("Password must contain at least 8 characters.")
+
+    # Check whether the password contains a number.
+    has_digit = False
+
+    for character in password:
+        if character.isdigit():
+            has_digit = True
+            break
+
+    if not has_digit:
+        errors.append("Password must contain at least one numeric digit.")
+
+    # Check whether the password contains one of the
+    # allowed special characters.
+    special_characters = "@#$"
+    has_special = False
+
+    for character in password:
+        if character in special_characters:
+            has_special = True
+            break
+
+    if not has_special:
+        errors.append(
+            "Password must contain at least one special character (@, #, $)."
+        )
+
+    # If there are no errors, the password is valid.
+    if not errors:
+        return {
+            "valid": True,
+            "message": "Password is valid."
+        }
+
+    return {
+        "valid": False,
+        "errors": errors
+    }
+
+
+print(validate_password("hello123"))
+print(validate_password("hello123$"))
