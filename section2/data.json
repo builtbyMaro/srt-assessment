@@ -1,0 +1,22 @@
+{
+    "products": [
+        {
+            "product_id": "P001",
+            "name": "Laptop",
+            "price": 1000,
+            "stock_quantity": 10
+        },
+        {
+            "product_id": "P002",
+            "name": "Wireless Mouse",
+            "price": 30,
+            "stock_quantity": 20
+        },
+        {
+            "product_id": "P003",
+            "name": "Mechanical Keyboard",
+            "price": 80,
+            "stock_quantity": 1
+        }
+    ]
+}
